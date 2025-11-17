@@ -1,0 +1,58 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <div data-include="/components/head.html"></div>
+</head>
+
+<body class="bg-light">
+
+  <div class="container py-5">
+
+    <div class="card shadow-sm overflow-hidden">
+      <div class="row g-0">
+
+        <div data-include="/components/hero.html"></div>
+
+        <div class="col-md-7 bg-white p-5">
+
+          <div data-include="/components/header.html"></div>
+
+          <p class="text-muted mb-4">
+            Create a collaborative coding room or join an existing one. Fast, clean and efficient.
+          </p>
+
+          <div data-include="/components/create-room.html"></div>
+          <div data-include="/components/join-room.html"></div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-include="/components/scripts.html"></div>
+
+  <!-- Loader -->
+  <script>
+    async function includeHTML() {
+      const elements = document.querySelectorAll("[data-include]");
+
+      for (const el of elements) {
+        const file = el.getAttribute("data-include");
+        const resp = await fetch(file);
+        const html = await resp.text();
+        el.outerHTML = html;
+      }
+
+      // load actual JS after components loaded
+      const script = document.createElement("script");
+      script.src = "/js/index.js";
+      document.body.appendChild(script);
+    }
+
+    includeHTML();
+  </script>
+
+</body>
+</html>
