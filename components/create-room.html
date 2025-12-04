@@ -1,0 +1,33 @@
+<h6 class="fw-bold mb-2">Create Room</h6>
+
+<form id="createForm" class="row g-2 mb-4" novalidate>
+  <!-- Room Name -->
+  <div class="col-md-7">
+    <input
+      id="name"
+      class="form-control"
+      placeholder="Room name (optional)"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Language Selection -->
+  <div class="col-md-3">
+    <select id="language" class="form-select" aria-label="Select language">
+      <option value="javascript">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="cpp">C++</option>
+      <option value="java">Java</option>
+    </select>
+  </div>
+
+  <!-- Create Button -->
+  <div class="col-md-2">
+    <button id="createBtn" class="btn btn-primary w-100" type="submit">
+      Create
+    </button>
+  </div>
+</form>
+
+<!-- Result Message -->
+<div id="created" class="alert d-none"></div>

@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Component loader placeholder -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartBridge Realtime Code Collaboration</title>
+
+  <!-- Head include (valid placement) -->
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- This will be replaced dynamically -->
+  <div data-include="/components/head.html" style="display:none;"></div>
+</head>
+
+<body class="bg-light">
+
+  <div id="app" class="container py-5" style="opacity:0; transition:opacity .25s;">
+    <div class="card shadow-sm overflow-hidden">
+      <div class="row g-0">
+
+        <div data-include="/components/hero.html"></div>
+
+        <div class="col-md-7 bg-white p-5">
+          <div data-include="/components/header.html"></div>
+
+          <p class="text-muted mb-4">
+            Create a collaborative coding room or join an existing one. Fast, clean and efficient.
+          </p>
+
+          <div data-include="/components/create-room.html"></div>
+          <div data-include="/components/join-room.html"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-include="/components/scripts.html"></div>
+
+  <!-- Loader -->
+  <script>
+    async function includeHTML() {
+      const elements = document.querySelectorAll("[data-include]");
+
+      for (const el of elements) {
+        const file = el.getAttribute("data-include");
+        try {
+          const resp = await fetch(file);
+          if (!resp.ok) throw new Error(file + " not found");
+          const html = await resp.text();
+          el.outerHTML = html;
+        } catch (err) {
+          console.warn("Include failed:", err);
+          el.remove();
+        }
+      }
+
+      // Show UI after components are loaded
+      document.getElementById('app').style.opacity = 1;
+
+      // Load main script AFTER all includes
+      const script = document.createElement("script");
+      script.src = "/js/index.js";
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+
+    includeHTML();
+  </script>
+
+</body>
+</html>
